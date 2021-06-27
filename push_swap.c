@@ -10,14 +10,14 @@ void	bring_them_up(t_info *p, t_call *call)
 		while (++i < call->rb_call_num)
 			rrr(p);
 		while (i++ < call->ra_call_num)
-			ra(p);
+			rra(p);
 	}
 	else
 	{
 		while (++i < call->ra_call_num)
 			rrr(p);
 		while (i++ < call->rb_call_num)
-			rb(p);
+			rrb(p);
 	}
 }
 
@@ -242,10 +242,31 @@ void	deal_with_3_or_5(t_info *p, int r, char ch)
 		return (deal_with_five(p, ch));
 }
 
-// int		check_if_needs_ra(t_info *p, int r)
-// {
+int		check_if_needs_ra(t_info *p, int i, int r, int pivot)
+{
+	int		j;
 
-// }
+	j = -1;
+	while (++j < r - i)
+	{
+		if (p->a[p->size_a - 1 - j] < pivot)
+			return (1);
+	}
+	return (0);
+}
+
+int		check_if_needs_rb(t_info *p, int i, int r, int pivot)
+{
+	int		j;
+
+	j = -1;
+	while (++j < r - i)
+	{
+		if (p->b[p->size_b - 1 - j] > pivot)
+			return (1);
+	}
+	return (0);
+}
 
 void	A_to_B(t_info *p, int r)
 {
@@ -270,6 +291,8 @@ void	A_to_B(t_info *p, int r)
 		call = init_call();
 		while (++i < r)
 		{
+			if (!check_if_needs_ra(p, i, r, pivot.pivot_big))
+				break;
 			if (p->a[p->size_a - 1] >= pivot.pivot_big)
 				set_ra(p, call);
 			else
@@ -297,6 +320,7 @@ void	B_to_A(t_info *p, int r)
 		return (sort_under_three(p, r, 'b'));
 	// if (r == 3)
 	// 	return (deal_with_3_or_5(p, r, 'b'));
+
 	if (!check_if_sorted(p, r, 'b'))
 	{
 		pivot = find_pivot(p, r, 'b');
@@ -304,6 +328,8 @@ void	B_to_A(t_info *p, int r)
 		call = init_call();
 		while (++i < r)
 		{
+			if (!check_if_needs_rb(p, i, r, pivot.pivot_small))
+				break;
 			if (p->b[p->size_b - 1] < pivot.pivot_small)
 				set_rb(p, call);
 			else

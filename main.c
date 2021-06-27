@@ -13,13 +13,12 @@ int main(int argc, char **argv)
 	p = (t_info*)malloc(sizeof(t_info));
 	init(p, nums, argc - 1);
 
-	print_all(p);
-
-	printf("---------------\n");
+	// print_all(p);
+	// printf("---------------\n");
 
 	A_to_B(p, argc - 1);
 
-	print_all(p);
+	// print_all(p);
 
 	return 0;
 }

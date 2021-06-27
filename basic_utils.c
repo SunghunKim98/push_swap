@@ -106,8 +106,10 @@ void	sb(t_info *p)
 
 void	ss(t_info *p)
 {
-	sa(p);
-	sb(p);
+	if (p->size_a > 1)
+		swap(p->a, p->size_a - 1, p->size_a - 2);
+	if (p->size_b > 1)
+		swap(p->b, p->size_b - 1, p->size_b - 2);
 	ft_putstr("ss\n");
 }
 
@@ -157,8 +159,10 @@ void	rb(t_info *p)
 
 void	rr(t_info *p)
 {
-	ra(p);
-	rb(p);
+	if (p->size_a > 1)
+		rotate(p->a, p->size_a);
+	if (p->size_b > 1)
+		rotate(p->b, p->size_b);
 	ft_putstr("rr\n");
 }
 
@@ -182,7 +186,9 @@ void	rrb(t_info *p)
 
 void	rrr(t_info *p)
 {
-	rra(p);
-	rrb(p);
+	if (p->size_a > 1)
+		reverse_rotate(p->a, p->size_a);
+	if (p->size_b > 1)
+		reverse_rotate(p->b, p->size_b);
 	ft_putstr("rrr\n");
 }
