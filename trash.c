@@ -39,3 +39,30 @@ int		find_pivot_one(t_info *p, int r, char ch)
 	free(num);
 	return (i);
 }
+
+void	print_all(t_info *p)
+{
+	int	i;
+	int	bigger;
+
+	if (p->size_a > p->size_b)
+		bigger = p->size_a;
+	else
+		bigger = p->size_b;
+	i = bigger - 1;
+	while (i >= 0)
+	{
+		if (i > p->size_a - 1)
+			printf("");
+		else
+			printf("%d", p->a[i]);
+		printf("  |  ");
+		if (i > p->size_b - 1)
+			printf("");
+		else
+			printf("%d", p->b[i]);
+		i--;
+		printf("\n");
+	}
+	printf("\na  |  b\n");
+}

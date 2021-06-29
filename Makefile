@@ -13,7 +13,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = ./basic_utils.c ./main_utils.c ./push_swap.c ./set_utils.c ./trash.c ./utils.c ./main.c
+SRCS = ./basic_utils.c ./command_1.c ./command_2.c ./command_3.c ./main_utils.c ./push_swap.c ./set_utils.c ./sort.c ./sub_func.c ./trash.c ./utils.c ./main.c
 
 OBJS = $(SRCS:.c=.o)
 
