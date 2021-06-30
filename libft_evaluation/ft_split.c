@@ -6,7 +6,7 @@
 /*   By: sungkim <sungkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 20:44:30 by sungkim           #+#    #+#             */
-/*   Updated: 2021/05/08 20:56:08 by sungkim          ###   ########.fr       */
+/*   Updated: 2021/06/30 23:03:20 by sungkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		find_num(char const *s, char c)
 {
-	char const	*p;
 	int			num;
+	int			i;
 
 	num = 0;
-	p = s;
-	while (*p)
+	i = -1;
+	while (s[++i])
 	{
-		if (*(p++) == c)
+		if ((s[i] != c && s[i + 1] == c) || (s[i] != c && s[i + 1] == 0))
 			num++;
 	}
 	return (num);
@@ -43,11 +43,37 @@ char	*ft_strncpy(char const *str, int start, int end)
 	return (p);
 }
 
-void	reset(int *i, int *index, int *start)
+int		reset(int *index, int *start, char const *s)
 {
-	*i = -1;
+	int		i;
+
 	*index = 0;
 	*start = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == ' ')
+			i++;
+		else
+			break;
+	}
+	if (i != 0)
+		*start = i;
+	return (i - 1);
+}
+
+int		find_next_start(char const *s, int i)
+{
+	int		j;
+
+	j = 0;
+	while (s[i + j])
+	{
+		if (s[i + j] != ' ')
+			break;
+		j++;
+	}
+	return (i + j);
 }
 
 char	**ft_split(char const *s, char c)
@@ -58,18 +84,18 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		index;
 
-	p = (char**)malloc(sizeof(char*) * (find_num(s, c) + 2));
+	p = (char**)malloc(sizeof(char*) * (find_num(s, c) + 1));
 	if (p == 0)
 		return (NULL);
-	reset(&i, &index, &start);
+	i = reset(&index, &start, s);
 	while (s[++i])
 	{
-		if (s[i] == c)
+		if (s[i] != c && s[i + 1] == c)
 		{
-			end = i;
+			end = i + 1;
 			if (start != end)
 				p[index++] = ft_strncpy(s, start, end);
-			start = end + 1;
+			start = find_next_start(s, i + 1);
 		}
 	}
 	if (start != i)
