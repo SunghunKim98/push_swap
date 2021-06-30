@@ -203,9 +203,6 @@ int		if_argc_over_two(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	char	**args;
-	int		len;
-
 	if (argc < 2)
 		return (0);
 	else
